@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>کافه لوکال</title>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Vazir', Tahoma, sans-serif;
+      direction: rtl;
+    }
+    body {
+      background: #d9dbd7;
+      overflow-x: hidden;
+      color: #6b4c3b;
+      min-height: 100vh;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(circle at 30% 50%, #8dbb88cc 30%, transparent 80%),
+        radial-gradient(circle at 70% 60%, #c2d6c8cc 30%, transparent 80%);
+      animation: waveMove 15s linear infinite;
+      z-index: -1;
+    }
+    @keyframes waveMove {
+      0% {background-position: 0% 50%, 100% 50%;}
+      50% {background-position: 100% 50%, 0% 50%;}
+      100% {background-position: 0% 50%, 100% 50%;}
+    }
+    header {
+      text-align: center;
+      margin: 2rem 1rem 3rem;
+    }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-weight: bold;
+      font-size: 2.8rem;
+      color: #6b4c3b;
+      margin-bottom: 0.3rem;
+    }
+    header p {
+      font-size: 1.3rem;
+      color: #6b4c3b;
+      letter-spacing: 1.2px;
+    }
+    .menu-tabs {
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .menu-tabs button {
+      background: #8dbb88;
+      border: none;
+      color: #fff;
+      font-family: 'Pacifico', cursive;
+      font-weight: 700;
+      font-size: 1.2rem;
+      padding: 10px 22px;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 5px 10px #7aaa77cc;
+      transition: 0.3s ease;
+    }
+    .menu-tabs button:hover,
+    .menu-tabs button.active {
+      background: #6b4c3b;
+      box-shadow: 0 5px 15px #4e3a2acc;
+    }
+    .menu-section {
+      max-width: 900px;
+      margin: 0 auto 5rem;
+      background: #e7e8e4;
+      border-radius: 15px;
+      padding: 1rem 2rem 3rem;
+      box-shadow: 0 6px 18px #b3b6aaaa;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      height: 0;
+      overflow: hidden;
+    }
+    .menu-section.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      height: auto;
+      overflow: visible;
+    }
+    .menu-section h2, .sub-category h3 {
+      font-family: 'Vazir', Tahoma, sans-serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: #6b4c3b;
+      margin: 1rem 0 1rem;
+      border-bottom: 2px solid #6b4c3b;
+      padding-bottom: 5px;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .menu-item .item-info {
+      max-width: 75%;
+    }
+    .item-name {font-weight: 700; font-size: 1.1rem; color: #6b4c3b;}
+    .item-desc {font-size: 0.95rem; color: #bfae8e; margin-top: 0.2rem; font-weight: 600;}
+    .item-price {font-weight: 700; font-size: 1.1rem; color: #bfae8e; min-width: 90px; text-align: left;}
+    #contact-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 25px;
+      background-color: #bfae8e;
+      border-radius: 50%;
+      width: 55px;
+      height: 55px;
+      box-shadow: 0 4px 12px #6b4c3b88;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b4c3b;
+      font-size: 28px;
+      z-index: 1000;
+      transition: background-color 0.4s ease;
+    }
+    #contact-btn:hover {
+      background-color: #8dbb88;
+      color: white;
+    }
+    #contact-options {
+      position: fixed;
+      bottom: 95px;
+      right: 25px;
+      background: #e7e8e4;
+      border-radius: 12px;
+      padding: 10px 15px;
+      box-shadow: 0 4px 20px #6b4c3b55;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+    #contact-options a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: #6b4c3b;
+      font-family: 'Pacifico', cursive;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+    footer {
+      text-align: center;
+      color: #bfae8e;
+      font-weight: 700;
+      padding: 20px 10px 40px;
+      font-size: 1rem;
+      background: #e7e8e4;
+    }
+    @media (max-width: 768px) {
+      .menu-tabs {
+        flex-wrap: wrap;
+      }
+      .menu-tabs button {
+        flex: 1 1 45%;
+        font-size: 1rem;
+        padding: 8px 10px;
+      }
+      .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .item-price {
+        min-width: auto;
+        text-align: right;
+        align-self: flex-end;
+        font-size: 1rem;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>به کافه لوکال خوش آمدید</h1>
+    <p>لوکال بنفشه هستیم</p>
+  </header>
+  <div class="menu-tabs">
+    <button class="active" data-target="drinks">نوشیدنی</button>
+    <button data-target="foods">غذا و پیش‌غذا</button>
+    <button data-target="breakfast">صبحانه</button>
+  </div>
+
+  <section class="menu-section active" id="drinks">
+    <!-- نوشیدنی‌ها -->
+    <div class="sub-category">
+      <h3>قهوه</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">اسپرسو</div><div class="item-desc">قهوه قوی و خوش‌طعم</div></div><div class="item-price">۶۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">دبل اسپرسو</div><div class="item-desc">دو برابر اسپرسو</div></div><div class="item-price">۷۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آمریکانو</div><div class="item-desc">قهوه رقیق شده با آب داغ</div></div><div class="item-price">۸۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>قهوه با شیر</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">لاته</div><div class="item-desc">قهوه با شیر بخار داده شده</div></div><div class="item-price">۹۵ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">موکا</div><div class="item-desc">لاته با شکلات</div></div><div class="item-price">۹۵ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">نوتلا لاته</div><div class="item-desc">لاته با نوتلا</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">کاپوچینو</div><div class="item-desc">کف شیر غلیظ</div></div><div class="item-price">۹۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آفوگاتو</div><div class="item-desc">اسپرسو با بستنی وانیلی</div></div><div class="item-price">۱۱۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">کارامل ماکیاتو</div><div class="item-desc">لاته با کارامل</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>دمنوش</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آرامش</div><div class="item-desc">دمنوش آرامبخش</div></div><div class="item-price">۹۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">سیب دارچین</div><div class="item-desc">دمنوش سیب و دارچین</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">دمنوش لوکال</div><div class="item-desc">دمنوش مخصوص کافه لوکال</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>قهوه سرد</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آیس لاته</div><div class="item-desc">لاته سرد و خوشمزه</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آیس موکا</div><div class="item-desc">موکا سرد</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آیس کارامل ماکیاتو</div><div class="item-desc">کارامل ماکیاتو سرد</div></div><div class="item-price">۱۲۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">آیس آمریکانو</div><div class="item-desc">آمریکانو سرد</div></div><div class="item-price">۹۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>نوشیدنی گرم</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">چای سیاه</div><div class="item-desc">چای سنتی و خوش‌عطر</div></div><div class="item-price">۶۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">چای سبز</div><div class="item-desc">چای سبز با خواص زیاد</div></div><div class="item-price">۶۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">چای ماسالا</div><div class="item-desc">چای ماسالا هندی</div></div><div class="item-price">۸۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">هات چاکلت</div><div class="item-desc">شکلات داغ</div></div><div class="item-price">۸۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">وایت چاکلت</div><div class="item-desc">شکلات سفید داغ</div></div><div class="item-price">۸۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>ماکتل</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">موهیتو</div><div class="item-desc">نوشیدنی نعناع تازه</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">رد موهیتو</div><div class="item-desc">موهیتوی توت فرنگی</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">لیموناد</div><div class="item-desc">نوشیدنی لیمویی تازه</div></div><div class="item-price">۹۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">پیناکولادا</div><div class="item-desc">نوشیدنی نارگیلی و آناناس</div></div><div class="item-price">۱۵۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">پیناکولادا</div><div class="item-desc">نوشیدنی نارگیلی و آناناس</div></div><div class="item-price">۱۵۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">منگو بینگو</div><div class="item-desc">نوشیدنی انبه و میوه‌های گرمسیری</div></div><div class="item-price">۱۱۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">جنگل بارانی</div><div class="item-desc">نوشیدنی مرکبات و نعناع</div></div><div class="item-price">۱۲۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">گرین درینک</div><div class="item-desc">نوشیدنی سبز و سالم</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">جیگر خنک</div><div class="item-desc">نوشیدنی خنک و طراوت‌بخش</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>شیک</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">شیک شکلات</div><div class="item-desc">شیک غلیظ و خوشمزه</div></div><div class="item-price">۱۳۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">شیک نوتلا</div><div class="item-desc">شیک با طعم نوتلا</div></div><div class="item-price">۱۶۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">شیک ویژه لوکال</div><div class="item-desc">شیک خاص و منحصر به فرد</div></div><div class="item-price">۱۸۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>اسموتی</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">اسموتی توت فرنگی</div><div class="item-desc">اسموتی تازه و خوشمزه</div></div><div class="item-price">۱۱۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">اسموتی انبه</div><div class="item-desc">اسموتی انبه و موز</div></div><div class="item-price">۱۲۰ هزار تومان</div></div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="foods">
+    <!-- غذا و پیش‌غذا -->
+    <div class="sub-category">
+      <h3>پیش‌غذا</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">نان سیر</div><div class="item-desc">نان تازه با طعم سیر</div></div><div class="item-price">۷۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">سیب‌زمینی سرخ‌کرده</div><div class="item-desc">سیب‌زمینی طلایی و ترد</div></div><div class="item-price">۸۰ هزار تومان</div></div>
+    </div>
+
+    <div class="sub-category">
+      <h3>غذا</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">چیکن استریپس</div><div class="item-desc">تکه‌های مرغ سوخاری</div></div><div class="item-price">۱۲۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">برگر مخصوص لوکال</div><div class="item-desc">برگر با گوشت تازه و سس مخصوص</div></div><div class="item-price">۱۸۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">پاستا آلفردو</div><div class="item-desc">پاستا با سس آلفردو کرمی</div></div><div class="item-price">۱۵۰ هزار تومان</div></div>
+    </div>
+  </section>
+
+  <section class="menu-section" id="breakfast">
+    <!-- صبحانه -->
+    <div class="sub-category">
+      <h3>صبحانه</h3>
+      <div class="menu-item"><div class="item-info"><div class="item-name">املت</div><div class="item-desc">املت تازه با سبزیجات</div></div><div class="item-price">۱۱۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">پنکیک</div><div class="item-desc">پنکیک نرم با عسل</div></div><div class="item-price">۱۰۰ هزار تومان</div></div>
+      <div class="menu-item"><div class="item-info"><div class="item-name">کروسان</div><div class="item-desc">کروسان تازه و کرمی</div></div><div class="item-price">۱۲۰ هزار تومان</div></div>
+    </div>
+  </section>
+
+  <div id="contact-btn" title="ارتباط با ما">✉</div>
+  <div id="contact-options">
+    <a href="tel:+989123456789" target="_blank" rel="noopener noreferrer">تماس</a>
+    <a href="https://instagram.com/localcafebanafsheh" target="_blank" rel="noopener noreferrer">اینستاگرام</a>
+    <a href="https://goo.gl/maps/xYxYxYxYxYxY" target="_blank" rel="noopener noreferrer">لوکیشن</a>
+  </div>
+  <footer>کرج، بلوار شورا، بین کوچه کارآمد و اولیایی</footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.menu-tabs button');
+    const sections = document.querySelectorAll('.menu-section');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.getAttribute('data-target');
+        sections.forEach(section => {
+          if (section.id === target) {
+            section.classList.add('active');
+          } else {
+            section.classList.remove('active');
+          }
+        });
+      });
+    });
+    const contactBtn = document.getElementById('contact-btn');
+    const contactOptions = document.getElementById('contact-options');
+    contactBtn.addEventListener('click', () => {
+      contactOptions.style.display = contactOptions.style.display === 'flex' ? 'none' : 'flex';
+    });
+  </script>
+</body>
+</html>
